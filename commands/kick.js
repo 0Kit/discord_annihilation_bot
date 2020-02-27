@@ -23,12 +23,15 @@ module.exports = {
                                     const msg = new Discord.MessageEmbed()
                                         .setColor('#ff0600')
                                         .setTitle('User was kicked')
-                                        .addField("target name", taggedUser.tag)
                                         .setThumbnail(taggedUser.avatarURL())
-                                        .addBlankField()
-                                        .addField("admin", user_message.author.tag, true)
-                                        .setImage(user_message.author.avatarURL())
-                                        .addField("reason", reason);
+                                        .addFields([
+                                            {name:"target name", value:taggedUser.tag},
+                                            {name: "\u200B", value: "\u200B"},
+                                            {name:"target name", value:taggedUser.tag},
+                                            {name:"admin", value:user_message.author.tag},
+                                            {name:"reason", value:reason}
+                                        ])
+                                        .setImage(user_message.author.avatarURL());
                                     index.client.guilds.cache.get(config.guild_id).systemChannel.send(msg).then()
                                 });
                             }, 3 * 1000)

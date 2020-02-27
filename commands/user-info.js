@@ -13,12 +13,12 @@ module.exports = {
             .setColor('#0099ff')
             .setTitle(taggedUser.username)
             .setThumbnail(taggedUser.avatarURL())
-            .addField("id", taggedUser.id, true)
-            .addField("discriminator", taggedUser.discriminator, true)
-            .addField("isBot", taggedUser.bot, true)
+            .addFields([
+                {inline: true, name: "id", value: taggedUser.id},
+                {inline: true, name:"discriminator", value:taggedUser.discriminator},
+                {inline: true, name:"isBot", value:taggedUser.bot},
+            ])
             .setFooter(`@${taggedUser.username}#${taggedUser.discriminator}`);
-
-
         message.channel.send(userEmbed);
     },
 };

@@ -68,7 +68,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
     }
     let member = reaction.message.guild.member(user.id);
     if (reaction.message.id === config.post.post_id && user.id !== '670307950136655872') {
-        if ((member._roles.length < config.max_roles_for_user) && !(member._roles.includes(config.roles.any))) {
+        let user_roles = 0;
+        for (let role in config.roles) {
+            if (member._roles.indexOf(config.roles[role]) !== -1) {
+                console.log(true);
+                user_roles++
+            }
+        }
+        if ((user_roles < config.max_roles_for_user) && !(member._roles.includes(config.roles.any))) {
             for (let emoji in config.emoji) {
                 if (config.emoji.hasOwnProperty(emoji) && (reaction.emoji.id === config.emoji[emoji])) {
                     await member.roles.add(config.roles[emoji]);
